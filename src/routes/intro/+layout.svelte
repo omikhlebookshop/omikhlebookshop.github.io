@@ -2,4 +2,4 @@
   let { children } = $props();
 </script>
 
-<div prose mb-15 class="lg:max-w-sm">{@render children()}</div>
+<div prose mb-15 class="lg:max-w-sm dark:prose-invert">{@render children()}</div>

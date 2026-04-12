@@ -45,7 +45,7 @@
 <section id="books" class="mt-24 mb-16">
   <div flex>
     <!-- Sidebar category nav -->
-    <nav flex flex-col prose class="basis-1/3 min-w-28 shrink-0 pt-1 pr-5">
+    <nav flex flex-col prose class="basis-1/3 min-w-28 shrink-0 pt-1 pr-5 dark:prose-invert">
       {#each categories as cat}
         <button
           text-right

@@ -46,13 +46,13 @@
   >
     霧中風景
   </p>
-  <p prose class="mt-[14rem]">
+  <p prose class="mt-[14rem] dark:prose-invert">
     Online / Pop-Up bookshop <br />
     Asian Cinema, Photography, Artist-Zine
   </p>
 </section>
 
-<section prose class="ml-1/3 w-full">
+<section prose class="ml-1/3 w-full dark:prose-invert">
   Omikhle Bookshop is an independent online and pop-up bookstore that curates a distinctive
   selection of books and printed materials centered on Asian cinema, photography, and artist zines.
   <br />
