@@ -19,6 +19,9 @@
       : null
   );
   const size = $derived(entry?.unit && `${entry.width} x ${entry.height} ${entry.unit}`);
+
+  const enDesc = $derived(entry?.description?.find((d) => d._key === 'en')?.value);
+  const zhDesc = $derived(entry?.description?.find((d) => d._key === 'zh')?.value);
 </script>
 
 <svelte:head>
@@ -37,7 +40,10 @@
         <!-- publication details -->
         <section grid="~ cols-2">
           <ul col-start-2 m-0 class="leading-[1.25]">
-            <li>{entry.publisher}</li>
+            {#each entry.publisher as pub (pub)}
+              <li>{pub.label}</li>
+            {/each}
+            <!--
             <li>{entry.pages} pp</li>
             <li>{publishedMonth} {entry.publishedYear}</li>
             {#if size}
@@ -48,6 +54,7 @@
                 <li>{lang.value}</li>
               {/each}
             {/if}
+            -->
             {#if entry.price}
               <li>C$ {entry.price}</li>
             {/if}
@@ -56,7 +63,13 @@
 
         <!-- description -->
         <section>
-          <PortableText value={entry.description} />
+          <PortableText value={zhDesc} />
+        </section>
+      </div>
+      <div class="col-span-2 lg:col-span-1">
+        <!-- description in English -->
+        <section>
+          <PortableText value={enDesc} />
         </section>
       </div>
     </div>
