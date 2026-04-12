@@ -18,17 +18,24 @@
     width?: number;
     height?: number;
     unit?: 'in' | 'mm';
-    tags: string[];
+    // tags: string[];
+    filterCategory: string[];
     coverUrl?: string;
+  }
+
+  interface Category {
+    title: string;
   }
 
   interface Props {
     books: Book[];
+    categories: Category[];
   }
 
-  let { books } = $props();
+  let { books, categories }: Props = $props();
 
-  const categories = ['All', 'Photography', 'Cinema', 'Artist Zine'];
+  const getCategories = (cats) => cats?.map((c) => c.title);
+  const allCategories = $derived(['All', ...getCategories(categories)]);
   const coverColors = ['#c8c0b8', '#f0e8e0', '#2c2c2c', '#1a1a1a', '#4a6fa5', '#8b2e2e', '#7a8c7a'];
 
   let selectedCategory = $state('All');
@@ -38,7 +45,7 @@
   const filteredBooks = $derived(
     selectedCategory === 'All'
       ? books
-      : books.filter((b) => getTags(b.tags).includes(selectedCategory))
+      : books.filter((b) => getCategories(b.filterCategory)?.includes(selectedCategory))
   );
 </script>
 
@@ -46,7 +53,7 @@
   <div flex>
     <!-- Sidebar category nav -->
     <nav flex flex-col prose class="basis-1/3 min-w-28 shrink-0 pt-1 pr-5 dark:prose-invert">
-      {#each categories as cat}
+      {#each allCategories as cat}
         <button
           text-right
           class="text-right transition-colors duration-200 py-1 {cat === selectedCategory

@@ -3,12 +3,21 @@ import _ from 'lodash';
 
 const options = { next: { revalidate: 30 } };
 
-const FETCH_QUERY = `*[_type == "book"]{
+const FETCH_QUERY = {
+  allBooks: `*[_type == "book"]{
   ...,
-}`;
+}`,
+  allCategories: `*[_type == "category"]{
+ ...,
+}`
+};
+
+async function fetchCategories() {
+  return await client.fetch(FETCH_QUERY['allCategories'], {}, options);
+}
 
 async function fetchBooks() {
-  return await client.fetch(FETCH_QUERY, {}, options);
+  return await client.fetch(FETCH_QUERY['allBooks'], {}, options);
 
   // return _.flatten(
   //   books.map((book) => {
@@ -42,4 +51,4 @@ function getBook(books, id: string, locale: string) {
   return res ? res[0] : null;
 }
 
-export { fetchBooks, getBooksByLocale, getBookById, getBook };
+export { fetchBooks, fetchCategories, getBooksByLocale, getBookById, getBook };

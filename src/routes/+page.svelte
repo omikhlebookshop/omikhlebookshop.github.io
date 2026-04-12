@@ -10,6 +10,7 @@
 
   const { scrollState, useCalculator } = useScrollCalculator();
   const books = $derived(data.books);
+  const categories = $derived(data.categories);
 
   function scrollToHash() {
     const hash = window.location.hash;
@@ -61,4 +62,4 @@
   </ul>
 </section>
 
-<Books {books} />
+<Books {books} {categories} />
