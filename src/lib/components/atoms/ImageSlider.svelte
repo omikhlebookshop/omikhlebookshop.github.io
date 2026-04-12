@@ -1,0 +1,81 @@
+<script lang="ts">
+  import type { SanityImageObject } from '@sanity/image-url/lib/types/types';
+  import { Image } from '@unpic/svelte';
+
+  import { urlFor } from '$lib/sanity/image';
+
+  interface ImageSliderProps {
+    images: SanityImageObject[];
+    caption: string;
+  }
+  const { images, caption }: ImageSliderProps = $props();
+</script>
+
+<div bg-black h-full px-5 class="w-[2/3]">
+  <ul flex items-start gap-5 overflow-x-scroll scrollbar-none h-full>
+    {#each images as image, index (image._key)}
+      <li h-full shrink-0 flex items-center>
+        <Image src={urlFor(image).url()} height={400} alt={`${caption} - ${index}`} />
+      </li>
+    {/each}
+  </ul>
+</div>
+
+<style scoped>
+  ul::scroll-button(*) {
+    display: none;
+    border: 0;
+    font-size: 1em;
+    background: none;
+    /* color: rgb(0 0 0 / 0.7); */
+    color: #e0e0e0;
+    cursor: pointer;
+  }
+  @media (min-width: 1024px) {
+    ul::scroll-button(*) {
+      display: block;
+    }
+  }
+
+  ul::scroll-button(*):hover,
+  ul::scroll-button(*):focus {
+    color: rgb(0 0 0 / 1);
+  }
+
+  ul::scroll-button(*):active {
+    translate: 1px 1px;
+  }
+
+  ul::scroll-button(*):disabled {
+    /* color: rgb(0 0 0 / 0.2); */
+    color: #7a7a7a;
+    cursor: unset;
+  }
+
+  ul::scroll-button(left) {
+    content: 'Prev';
+  }
+
+  ul::scroll-button(right) {
+    content: 'Next';
+  }
+
+  ul {
+    anchor-name: --myCarousel;
+  }
+
+  ul::scroll-button(*) {
+    position: absolute;
+    position-anchor: --myCarousel;
+  }
+
+  ul::scroll-button(left) {
+    left: calc(anchor(right) - 4.6em);
+    top: calc(anchor(bottom) + 13px);
+  }
+
+  ul::scroll-button(right) {
+    left: calc(anchor(right) - 2.3em);
+    top: calc(anchor(bottom) + 13px);
+  }
+</style>

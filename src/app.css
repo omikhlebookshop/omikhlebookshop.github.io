@@ -1,0 +1,7 @@
+@import '@unocss/reset/tailwind.css';
+
+:lang(zh) {
+  font-family: source-han-sans-simplified-c, sans-serif;
+}
+
+/* resets */
