@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   cachix.enable = true;
@@ -7,4 +7,8 @@
   languages.javascript.enable = true;
   languages.typescript.enable = true;
   languages.javascript.pnpm.enable = true;
+
+  packages = [
+    pkgs.git
+  ];
 }
