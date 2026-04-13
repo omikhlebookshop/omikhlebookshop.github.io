@@ -3,8 +3,6 @@
   import { toDate } from '$lib/utils/time';
   import ImageSlider from '$lib/components/atoms/ImageSlider.svelte';
   import { PortableText } from '@portabletext/svelte';
-  import { Image } from '@unpic/svelte';
-  import { urlFor } from '$lib/sanity/image';
 
   // TODO: rename the data to something more semantic?
   let { data }: PageProps = $props();

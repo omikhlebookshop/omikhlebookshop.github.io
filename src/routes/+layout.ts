@@ -7,6 +7,5 @@ export const prerender = true;
 export const load: LayoutData = async () => {
   const books = await fetchBooks();
   const categories = await fetchCategories();
-  console.dir(books);
   return { books, categories };
 };

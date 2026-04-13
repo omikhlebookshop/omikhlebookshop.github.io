@@ -54,12 +54,12 @@
 </section>
 
 <section prose class="ml-1/3 w-full dark:prose-invert">
-  Omikhle Bookshop is an independent online and pop-up bookstore that curates a distinctive
-  selection of books and printed materials centered on Asian cinema, photography, and artist zines.
-  <br />
-  <ul>
-    <li>omikhlebookshop@gmail.com</li>
-  </ul>
+  <p>
+    Omikhle Bookshop is an independent online and pop-up bookstore that curates a distinctive
+    selection of books and printed materials centered on Asian cinema, photography, and artist
+    zines.
+  </p>
+  <p>omikhlebookshop@gmail.com</p>
 </section>
 
 <Books {books} {categories} />

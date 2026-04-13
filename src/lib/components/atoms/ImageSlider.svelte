@@ -2,7 +2,7 @@
   import type { SanityImageObject } from '@sanity/image-url/lib/types/types';
   import { Image } from '@unpic/svelte';
 
-  import { urlFor } from '$lib/sanity/image';
+  import { urlBuilder } from '$lib/sanity/image';
 
   interface ImageSliderProps {
     images: SanityImageObject[];
@@ -15,7 +15,7 @@
   <ul flex items-start gap-5 overflow-x-scroll scrollbar-none h-full>
     {#each images as image, index (image._key)}
       <li h-full shrink-0 flex items-center>
-        <Image src={urlFor(image).url()} height={400} alt={`${caption} - ${index}`} />
+        <Image src={urlBuilder.image(image).url()} height={400} alt={`${caption} - ${index}`} />
       </li>
     {/each}
   </ul>
