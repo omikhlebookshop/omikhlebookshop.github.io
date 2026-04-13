@@ -11,11 +11,16 @@
   const { images, caption }: ImageSliderProps = $props();
 </script>
 
-<div bg-black h-full px-5 class="w-[2/3]">
-  <ul flex items-start gap-5 overflow-x-scroll scrollbar-none h-full>
+<div bg-black h-full px-5>
+  <ul flex items-center gap-5 overflow-x-scroll scrollbar-none h-full>
     {#each images as image, index (image._key)}
-      <li h-full shrink-0 flex items-center>
-        <Image src={urlBuilder.image(image).url()} height={400} alt={`${caption} - ${index}`} />
+      <li shrink-0 flex items-center>
+        <Image
+          src={urlBuilder.image(image).url()}
+          height={800}
+          alt={`${caption} - ${index}`}
+          class="h-[500px]"
+        />
       </li>
     {/each}
   </ul>
