@@ -20,6 +20,9 @@
 
   const enDesc = $derived(entry?.description?.find((d) => d._key === 'en')?.value);
   const zhDesc = $derived(entry?.description?.find((d) => d._key === 'zh')?.value);
+
+  const enInfo = $derived(entry?.info?.find((d) => d._key === 'en')?.value);
+  const zhInfo = $derived(entry?.info?.find((d) => d._key === 'zh')?.value);
 </script>
 
 <svelte:head>
@@ -36,6 +39,9 @@
         <!-- publication details -->
         <section grid="~ cols-2">
           <ul col-start-2 m-0 class="leading-[1.25]">
+            {#each entry.author as auth (auth)}
+              <li>{auth.label}</li>
+            {/each}
             {#each entry.publisher as pub (pub)}
               <li>{pub.label}</li>
             {/each}
@@ -59,12 +65,14 @@
 
         <!-- description -->
         <section>
+          <PortableText value={zhInfo} />
           <PortableText value={zhDesc} />
         </section>
       </div>
       <div class="col-span-2 lg:col-span-1">
         <!-- description in English -->
         <section>
+          <PortableText value={enInfo} />
           <PortableText value={enDesc} />
         </section>
       </div>
