@@ -9,11 +9,15 @@
     caption: string;
   }
   const { images, caption }: ImageSliderProps = $props();
+
+  const safeImages: SanityImageObject[] = $derived(
+    images.filter((img: SanityImageObject) => img.asset !== undefined)
+  );
 </script>
 
 <div bg-black h-full px-5>
   <ul flex items-center gap-5 overflow-x-scroll scrollbar-none h-full>
-    {#each images as image, index (image._key)}
+    {#each safeImages as image, index (image._key)}
       <li shrink-0 flex items-center>
         <Image
           src={urlBuilder.image(image).url()}

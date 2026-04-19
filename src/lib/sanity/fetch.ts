@@ -17,7 +17,8 @@ async function fetchCategories() {
 }
 
 async function fetchBooks() {
-  return await client.fetch(FETCH_QUERY['allBooks'], {}, options);
+  const books = await client.fetch(FETCH_QUERY['allBooks'], {}, options);
+  return books;
 
   // return _.flatten(
   //   books.map((book) => {
