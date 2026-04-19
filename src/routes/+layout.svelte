@@ -35,7 +35,7 @@
   font-sans
   text="lg primary"
   overflow-hidden
-  p="x-10"
+  px-10
   class="dark:bg-dark lg:t-5"
   bind:this={container}
   {@attach cursor}

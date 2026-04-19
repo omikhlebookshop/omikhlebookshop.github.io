@@ -15,7 +15,7 @@
   );
 </script>
 
-<div bg-black h-full px-5>
+<div lg:px-5>
   <ul flex items-center gap-5 overflow-x-scroll scrollbar-none h-full>
     {#each safeImages as image, index (image._key)}
       <li shrink-0 flex items-center>

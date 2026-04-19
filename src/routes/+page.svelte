@@ -33,33 +33,35 @@
   <meta name="description" content="Homepage of the Omíkhlē Bookshop（雾中风景书店）" />
 </svelte:head>
 
-<section flex flex-col gap-16 pt-48 class="pl-1/3 h-screen max-h-200">
-  <p
-    absolute
-    whitespace-nowrap
-    overflow-hidden
-    text-clip
-    class="text-[11rem]/[11rem] h-[12rem]"
-    m-0
-    font-serif
-    font-light
-    bind:this={bannerTitle}
-  >
-    霧中風景
-  </p>
-  <p prose class="mt-[14rem] dark:prose-invert">
-    Online / Pop-Up bookshop <br />
-    Asian Cinema, Photography, Artist-Zine
-  </p>
-</section>
+<div grid grid-cols-1 gap-5 class="lg:grid-cols-[30%_1fr]">
+  <section lg:col-start-2 flex flex-col gap-16 pt-48 class="h-screen max-h-200">
+    <p
+      absolute
+      whitespace-nowrap
+      overflow-hidden
+      text-clip
+      class="text-[11rem]/[11rem] h-[12rem]"
+      m-0
+      font-serif
+      font-light
+      bind:this={bannerTitle}
+    >
+      霧中風景
+    </p>
+    <p prose class="mt-[14rem] dark:prose-invert">
+      Online / Pop-Up bookshop <br />
+      Asian Cinema, Photography, Artist-Zine
+    </p>
+  </section>
 
-<section prose class="ml-1/3 w-full dark:prose-invert">
-  <p>
-    Omikhle Bookshop is an independent online and pop-up bookstore that curates a distinctive
-    selection of books and printed materials centered on Asian cinema, photography, and artist
-    zines.
-  </p>
-  <p>omikhlebookshop@gmail.com</p>
-</section>
+  <section lg:col-start-2 prose mb-10 class="dark:prose-invert">
+    <p>
+      Omikhle Bookshop is an independent online and pop-up bookstore that curates a distinctive
+      selection of books and printed materials centered on Asian cinema, photography, and artist
+      zines.
+    </p>
+    <p>omikhlebookshop@gmail.com</p>
+  </section>
 
-<Books {books} {categories} />
+  <Books {books} {categories} />
+</div>

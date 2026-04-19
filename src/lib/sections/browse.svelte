@@ -51,58 +51,50 @@
   );
 </script>
 
-<section id="books" flex mt-24 mb-16 w-full>
-  <!-- Sidebar category nav -->
-  <nav flex flex-col prose class="w-1/3 shrink-0 pr-5 dark:prose-invert">
-    {#each allCategories as cat (cat)}
-      <button
-        text-right
-        class="text-right transition-colors duration-200 py-1 {cat === selectedCategory
-          ? 'text-primary'
-          : 'text-secondary hover:text-primary'}"
-        onclick={() => (selectedCategory = cat)}
-      >
-        {cat}
-      </button>
-    {/each}
-  </nav>
-
-  <!-- Books grid -->
-  <div class="w-2/3">
-    {#if filteredBooks.length === 0}
-      <p class="text-secondary italic">No books found in this category.</p>
-    {/if}
-
-    <div
-      class="grid gap-x-10 gap-y-12"
-      style="grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));"
+<!-- Sidebar category nav -->
+<nav flex lg:flex-col flex-wrap prose class="shrink-0 pr-5 dark:prose-invert">
+  {#each allCategories as cat (cat)}
+    <button
+      text-right
+      shrink-0
+      mr-3
+      class="text-right transition-colors duration-200 py-1 {cat === selectedCategory
+        ? 'text-primary'
+        : 'text-secondary hover:text-primary'}"
+      onclick={() => (selectedCategory = cat)}
     >
-      {#each filteredBooks as book (book._id)}
-        <a class="group cursor-pointer" href="/book/{book._id}">
-          <!-- Book cover -->
-          <div class="w-full aspect-[3/4] mb-4 overflow-hidden">
-            <Image src={urlBuilder.image(book.cover).url()} />
-            <!-- Subtle inner shadow to emulate book depth -->
-            <div
-              class="w-full h-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              style="box-shadow: inset 4px 0 12px rgba(0,0,0,0.15);"
-            ></div>
-          </div>
+      {cat}
+    </button>
+  {/each}
+</nav>
 
-          <!-- Book info -->
-          <div class="text-center leading-snug">
-            <p
-              class="text-sm font-medium text-primary group-hover:underline decoration-1 underline-offset-2 transition-all"
-            >
-              {book.title}
-            </p>
-            <p class="text-xs text-secondary mt-1">{book.author[0].value}</p>
-            <p class="text-sm mt-2 text-primary">
-              {book.price && `C$ ${book.price.toFixed(2)}`}
-            </p>
-          </div>
-        </a>
-      {/each}
-    </div>
+<!-- Books grid -->
+<div mb-30>
+  {#if filteredBooks.length === 0}
+    <p class="text-secondary italic">No books found in this category.</p>
+  {/if}
+
+  <div grid gap-10 style="grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));">
+    {#each filteredBooks as book (book._id)}
+      <a class="group cursor-pointer" href="/book/{book._id}">
+        <!-- Book cover -->
+        <div flex flex-col class="w-full aspect-[3/4] mb-4 overflow-hidden">
+          <Image class="mt-auto" src={urlBuilder.image(book.cover).url()} />
+        </div>
+
+        <!-- Book info -->
+        <div class="text-center leading-snug">
+          <p
+            class="text-sm font-medium text-primary group-hover:underline decoration-1 underline-offset-2 transition-all"
+          >
+            {book.title}
+          </p>
+          <p class="text-xs text-secondary mt-1">{book.author[0].value}</p>
+          <p class="text-sm mt-2 text-primary">
+            {book.price && `C$ ${book.price.toFixed(2)}`}
+          </p>
+        </div>
+      </a>
+    {/each}
   </div>
-</section>
+</div>
