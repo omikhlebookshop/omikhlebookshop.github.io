@@ -60,7 +60,8 @@
       selection of books and printed materials centered on Asian cinema, photography, and artist
       zines.
     </p>
-    <p>omikhlebookshop@gmail.com</p>
+    <a href="mailto:omikhlebookshop@gmail.com" font-normal no-underline>omikhlebookshop@gmail.com</a
+    >
   </section>
 
   <Books {books} {categories} />
