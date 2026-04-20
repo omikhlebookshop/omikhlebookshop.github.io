@@ -17,7 +17,6 @@
   h-dvh
   p-5
   bg-white
-  dark:bg-dark
   z-30
   right-full
   class:translate-x-full={props.shouldExpand}
@@ -27,7 +26,7 @@
   ease-out
   overflow-y-scroll
   scrollbar-none
-  class={[props.class]}
+  class={`dark:bg-dark ${props.class ?? ''}`}
 >
   <Nav />
 </div>

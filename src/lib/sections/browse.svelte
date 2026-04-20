@@ -1,50 +1,34 @@
 <script lang="ts">
   import { Image } from '@unpic/svelte';
   import { urlBuilder } from '$lib/sanity/image';
-  import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
-  interface Book {
-    _id: string;
-    title: string;
-    titleAlternative: string[];
-    author: string[];
-    description: string[];
-    languages?: string[];
-    pages: number;
-    price?: number;
-    publisher: string;
-    publishedYear: number;
-    publishedMonth?: number;
-    format: 'paperback' | 'hardback' | 'zine';
-    width?: number;
-    height?: number;
-    unit?: 'in' | 'mm';
-    // tags: string[];
-    filterCategory: string[];
-    cover: SanityImageSource;
-    coverUrl?: string;
-  }
-
-  interface Category {
-    title: string;
-  }
+  import type { Tag, Book, CategoryTag } from '$lib/sanity/types';
+  import Placeholder from '$lib/components/atoms/Placeholder.svelte';
 
   interface Props {
     books: Book[];
-    categories: Category[];
+    categories: CategoryTag[] | undefined;
   }
 
   let { books, categories }: Props = $props();
+  let selectedCategory = $state('All');
 
-  const getCategories = (cats) => cats?.map((c) => c.title);
+  /* Utils for category filtering */
+  const getCategories = (cats: CategoryTag[] | undefined) => cats?.map((c) => c.title) ?? [];
   const allCategories = $derived(['All', ...getCategories(categories)]);
   // const coverColors = ['#c8c0b8', '#f0e8e0', '#2c2c2c', '#1a1a1a', '#4a6fa5', '#8b2e2e', '#7a8c7a'];
 
-  let selectedCategory = $state('All');
+  /* Utils for filtering other metadata */
+  const renderAuthors = (authors: Tag[] | undefined) => {
+    if (authors === undefined) {
+      return '';
+    }
 
-  // const getTags = (tags) => tags.map((t) => t.value);
+    const author = authors[0].value;
+    return authors.length > 1 ? `${author}, et al.` : author;
+  };
 
-  const filteredBooks = $derived(
+  const filteredBooks: Book[] = $derived(
     selectedCategory === 'All'
       ? books
       : books.filter((b) => getCategories(b.filterCategory)?.includes(selectedCategory))
@@ -79,7 +63,11 @@
       <a class="group cursor-pointer" href="/book/{book._id}">
         <!-- Book cover -->
         <div flex flex-col class="w-full aspect-[3/4] mb-4 overflow-hidden">
-          <Image class="mt-auto" src={urlBuilder.image(book.cover).url()} />
+          {#if book.cover === undefined}
+            <Placeholder label={book.title} />
+          {:else}
+            <Image class="mt-auto" src={urlBuilder.image(book.cover).url()} />
+          {/if}
         </div>
 
         <!-- Book info -->
@@ -89,7 +77,7 @@
           >
             {book.title}
           </p>
-          <p class="text-xs text-secondary mt-1">{book.author[0].value}</p>
+          <p class="text-xs text-secondary mt-1">{renderAuthors(book.author)}</p>
           <p class="text-sm mt-2 text-primary">
             {book.price && `C$ ${book.price.toFixed(2)}`}
           </p>
