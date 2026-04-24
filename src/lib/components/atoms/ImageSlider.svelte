@@ -13,22 +13,52 @@
   const safeImages: SanityImageObject[] = $derived(
     images.filter((img: SanityImageObject) => img.asset !== undefined)
   );
+
+  let track = $state<HTMLUListElement | null>(null);
+  let animId: number;
+
+  function startScroll() {
+    const el = track!;
+    function step() {
+      el.scrollLeft += 0.5;
+      // when we've scrolled half (the duplicate), reset silently
+      if (el.scrollLeft >= el.scrollWidth) {
+        cancelAnimationFrame(animId);
+      }
+      animId = requestAnimationFrame(step);
+    }
+    animId = requestAnimationFrame(step);
+  }
+
+  $effect(() => {
+    startScroll();
+    return () => cancelAnimationFrame(animId);
+  });
 </script>
 
-<div lg:px-5>
-  <ul flex items-center gap-5 overflow-x-scroll scrollbar-none h-full>
-    {#each safeImages as image, index (image._key)}
-      <li shrink-0 flex items-center>
-        <Image
-          src={urlBuilder.image(image).url()}
-          height={800}
-          alt={`${caption} - ${index}`}
-          class="h-[500px]"
-        />
-      </li>
-    {/each}
-  </ul>
-</div>
+<ul
+  flex
+  items-center
+  gap-5
+  overflow-x-scroll
+  scrollbar-none
+  h-full
+  class="animate-[scroll_2s_linear_infinite]"
+  bind:this={track}
+  onmouseenter={() => cancelAnimationFrame(animId)}
+  onmouseleave={startScroll}
+>
+  {#each safeImages as image, index (image._key)}
+    <li shrink-0 flex items-center>
+      <Image
+        src={urlBuilder.image(image).url()}
+        height={800}
+        alt={`${caption} - ${index}`}
+        class="h-[500px]"
+      />
+    </li>
+  {/each}
+</ul>
 
 <style scoped>
   ul::scroll-button(*) {

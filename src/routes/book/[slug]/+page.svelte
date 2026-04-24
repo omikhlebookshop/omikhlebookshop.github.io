@@ -20,11 +20,11 @@
   <meta name="description" content={`Details and previews of the book – ${entry.title}`} />
 </svelte:head>
 
-<article prose flex flex-col gap-10 class="max-w-[100ch] dark:prose-invert" relative>
+{#if entry?.images}
+  <ImageSlider images={entry.images} caption={`Image preview for ${entry.title}`} />
+{/if}
+<article prose flex flex-col gap-10 class="max-w-[100ch] dark:prose-invert" relative mt-10>
   {#if entry}
-    {#if entry.images}
-      <ImageSlider images={entry.images} caption={`Image preview for ${entry.title}`} />
-    {/if}
     <h1>{entry.title}</h1>
     <div grid="~ cols-2" gap-5>
       <div class="col-span-2 lg:col-span-1">

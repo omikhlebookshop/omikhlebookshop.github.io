@@ -34,7 +34,9 @@
   h-auto
   font-sans
   text="lg primary"
-  overflow-hidden
+  overflow-y-scroll
+  overflow-x-hidden
+  scrollbar-none
   px-10
   class="dark:bg-dark lg:t-5"
   bind:this={container}

@@ -20,7 +20,8 @@ export default defineConfig({
     },
     animation: {
       keyframes: {
-        color: '{0%, 100% {background: black} 50% {background: grey}}'
+        color: '{0%, 100% {background: black} 50% {background: grey}}',
+        scroll: '{from{transform:translateX(0)}to{transform:translateX(-50%)}}'
       },
       durations: {
         color: '12s'
