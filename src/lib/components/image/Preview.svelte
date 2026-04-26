@@ -4,15 +4,12 @@
 
   import { urlBuilder } from '$lib/sanity/image';
 
-  interface ImageSliderProps {
+  interface Props {
     images: SanityImageObject[];
+    selectedIndex: number | null;
     caption: string;
   }
-  const { images, caption }: ImageSliderProps = $props();
-
-  const safeImages: SanityImageObject[] = $derived(
-    images.filter((img: SanityImageObject) => img.asset !== undefined)
-  );
+  let { images, caption, selectedIndex = $bindable() }: Props = $props();
 
   let track = $state<HTMLUListElement | null>(null);
   let animId: number;
@@ -20,7 +17,7 @@
   function startScroll() {
     const el = track!;
     function step() {
-      el.scrollLeft += 0.5;
+      el.scrollLeft += 0.7;
       // when we've scrolled half (the duplicate), reset silently
       if (el.scrollLeft >= el.scrollWidth) {
         cancelAnimationFrame(animId);
@@ -48,14 +45,16 @@
   onmouseenter={() => cancelAnimationFrame(animId)}
   onmouseleave={startScroll}
 >
-  {#each safeImages as image, index (image._key)}
+  {#each images as image, index (image._key)}
     <li shrink-0 flex items-center>
-      <Image
-        src={urlBuilder.image(image).url()}
-        height={800}
-        alt={`${caption} - ${index}`}
-        class="h-[500px]"
-      />
+      <button onclick={() => (selectedIndex = index)}>
+        <Image
+          src={urlBuilder.image(image).url()}
+          height={800}
+          alt={`${caption} - ${index}`}
+          class="h-[400px]"
+        />
+      </button>
     </li>
   {/each}
 </ul>

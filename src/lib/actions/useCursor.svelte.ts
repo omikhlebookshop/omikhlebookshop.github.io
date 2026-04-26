@@ -1,4 +1,3 @@
-import type { Attachment } from 'svelte/attachments';
 import { spring } from 'svelte/motion';
 import { get } from 'svelte/store';
 
