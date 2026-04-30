@@ -39,7 +39,6 @@
   gap-5
   overflow-x-scroll
   scrollbar-none
-  h-full
   class="animate-[scroll_2s_linear_infinite]"
   bind:this={track}
   onmouseenter={() => cancelAnimationFrame(animId)}

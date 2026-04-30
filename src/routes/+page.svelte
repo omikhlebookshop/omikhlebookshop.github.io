@@ -8,22 +8,9 @@
   let bannerTitle: HTMLElement;
   let scrollY = $state(0);
 
-  const { scrollState, useCalculator } = useScrollCalculator();
+  const { useCalculator } = useScrollCalculator();
   const books = $derived(data.books);
   const categories = $derived(data.categories);
-
-  function scrollToHash() {
-    const hash = window.location.hash;
-    if (hash) {
-      const el = document.querySelector(hash);
-      el?.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-
-  onMount(() => {
-    scrollToHash();
-    window.addEventListener('hashchange', scrollToHash);
-  });
 </script>
 
 <svelte:window bind:scrollY onscroll={() => useCalculator(scrollY, bannerTitle)} />
@@ -34,7 +21,7 @@
 </svelte:head>
 
 <div grid grid-cols-1 gap-5 class="lg:grid-cols-[30%_1fr]">
-  <section lg:col-start-2 flex flex-col gap-16 pt-48 class="h-screen max-h-200">
+  <section flex flex-col gap-16 pt-48 class="h-screen max-h-200 lg:col-start-2">
     <p
       absolute
       whitespace-nowrap
@@ -54,14 +41,25 @@
     </p>
   </section>
 
-  <section lg:col-start-2 prose mb-10 class="dark:prose-invert">
-    <p>
+  <section prose flex flex-col gap-3 mb-10 class="dark:prose-invert lg:col-start-2">
+    <p id="about" scroll-mt-30 class="lg:scroll-mt-20">
       Omikhle Bookshop is an independent online and pop-up bookstore that curates a distinctive
       selection of books and printed materials centered on Asian cinema, photography, and artist
       zines.
     </p>
-    <a href="mailto:omikhlebookshop@gmail.com" font-normal no-underline>omikhlebookshop@gmail.com</a
-    >
+    <ul id="events" scroll-mt-30 class="lg:scroll-mt-20" border-l-2 border-secondary>
+      <li><span text-secondary>2026/04/25</span> CONTACT Photobook Fair</li>
+    </ul>
+    <p id="contact" scroll-mt-30 class="lg:scroll-mt-20">
+      <a href="mailto:omikhlebookshop@gmail.com" font-normal no-underline
+        >omikhlebookshop@gmail.com</a
+      >
+      <br />
+      You can also contact us through our
+      <a href="https://www.instagram.com/omikhlebookshop/" target="_blank" font-normal no-underline
+        >Instagram</a
+      >.
+    </p>
   </section>
 
   <Books {books} {categories} />

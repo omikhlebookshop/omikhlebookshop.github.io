@@ -78,19 +78,19 @@
   {/each}
 </ul>
 
-<div fixed bottom-2 right-5 flex gap-3 text-3xl z-30 class="hidden lg:flex">
+<div fixed bottom-2 right-5 flex gap-3 text-2xl z-30 class="hidden lg:flex">
   <button
     disabled={currentIndex === 0}
-    class="disabled:text-secondary"
+    class="disabled:text-secondary hover:text-secondary"
     onclick={() => scrollTo(currentIndex - 1)}>Prev</button
   >
   /
   <button
     disabled={currentIndex === images.length - 1}
-    class="disabled:text-secondary"
+    class="disabled:text-secondary hover:text-secondary"
     onclick={() => scrollTo(currentIndex + 1)}>Next</button
   >
 </div>
-<div class="fixed top-2 right-5 text-3xl z-30">
+<div fixed top-2 right-5 text-2xl z-30 class="hover:text-secondary">
   <button class="text-shadow-lg" onclick={onClose}>Close</button>
 </div>

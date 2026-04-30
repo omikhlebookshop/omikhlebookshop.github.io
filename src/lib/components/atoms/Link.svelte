@@ -6,7 +6,7 @@
   interface LinkProps {
     children: Snippet;
     href: string;
-    class: ClassValue;
+    class?: ClassValue;
     isExternal?: boolean;
     sideEffect?: CallableFunction;
   }
@@ -17,6 +17,6 @@
 <a
   href={base + props.href}
   class:no-underline={!props.isExternal}
-  class={[props.class]}
+  class={[props.class, 'hover:text-secondary cursor-pointer']}
   onclick={() => props.sideEffect && props.sideEffect()}>{@render props.children?.()}</a
 >

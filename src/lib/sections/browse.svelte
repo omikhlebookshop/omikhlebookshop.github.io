@@ -36,12 +36,11 @@
 </script>
 
 <!-- Sidebar category nav -->
-<nav flex lg:flex-col flex-wrap prose class="shrink-0 pr-5 dark:prose-invert">
+<nav flex flex-wrap prose class="dark:prose-invert lg:flex-col">
   {#each allCategories as cat (cat)}
     <button
       text-right
       shrink-0
-      mr-3
       class="text-right transition-colors duration-200 py-1 {cat === selectedCategory
         ? 'text-primary'
         : 'text-secondary hover:text-primary'}"
@@ -53,7 +52,7 @@
 </nav>
 
 <!-- Books grid -->
-<div mb-30>
+<div id="books" mb-30 scroll-mt-30 class="lg:scroll-mt-20">
   {#if filteredBooks.length === 0}
     <p class="text-secondary italic">No books found in this category.</p>
   {/if}
