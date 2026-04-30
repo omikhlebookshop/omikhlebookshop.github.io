@@ -55,6 +55,9 @@
               {#if entry.price}
                 <li>C$ {entry.price}</li>
               {/if}
+              <li>
+                <a href="mailto:omikhlebookshop@gmail.com">Contact us</a> for availability
+              </li>
             </ul>
           </section>
 

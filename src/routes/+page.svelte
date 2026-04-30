@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-
   import useScrollCalculator from '$lib/composables/scrollPercentage.svelte';
   import Books from '$lib/sections/browse.svelte';
+  import Cursor from '$lib/components/atoms/Cursor.svelte';
+  import { cursor } from '$lib/actions/useCursor.svelte';
 
   let { data } = $props();
   let bannerTitle: HTMLElement;
@@ -20,7 +20,10 @@
   <meta name="description" content="Homepage of the Omíkhlē Bookshop（雾中风景书店）" />
 </svelte:head>
 
-<div grid grid-cols-1 gap-5 class="lg:grid-cols-[30%_1fr]">
+<div grid grid-cols-1 gap-5 class="lg:grid-cols-[30%_1fr]" {@attach cursor}>
+  <!-- Custom cursor -->
+  <Cursor />
+  <!-- Home page content -->
   <section flex flex-col gap-16 pt-48 class="h-screen max-h-200 lg:col-start-2">
     <p
       absolute
@@ -36,12 +39,13 @@
       霧中風景
     </p>
     <p prose class="mt-[14rem] dark:prose-invert">
-      Online / Pop-Up bookshop <br />
+      Omikhle Bookshop <br />
+      Online / Pop-up Bookstore <br />
       Asian Cinema, Photography, Artist-Zine
     </p>
   </section>
 
-  <section prose flex flex-col gap-3 mb-10 class="dark:prose-invert lg:col-start-2">
+  <section prose flex flex-col mb-10 class="dark:prose-invert lg:col-start-2">
     <p id="about" scroll-mt-30 class="lg:scroll-mt-20">
       Omikhle Bookshop is an independent online and pop-up bookstore that curates a distinctive
       selection of books and printed materials centered on Asian cinema, photography, and artist

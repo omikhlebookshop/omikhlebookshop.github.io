@@ -36,12 +36,12 @@
 </script>
 
 <!-- Sidebar category nav -->
-<nav flex flex-wrap prose class="dark:prose-invert lg:flex-col">
+<nav flex flex-wrap prose leading-5 text-right class="dark:prose-invert lg:flex-col">
   {#each allCategories as cat (cat)}
     <button
       text-right
       shrink-0
-      class="text-right transition-colors duration-200 py-1 {cat === selectedCategory
+      class="transition-colors duration-200 py-1 {cat === selectedCategory
         ? 'text-primary'
         : 'text-secondary hover:text-primary'}"
       onclick={() => (selectedCategory = cat)}
