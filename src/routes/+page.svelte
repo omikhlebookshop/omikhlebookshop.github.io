@@ -11,6 +11,7 @@
   const { useCalculator } = useScrollCalculator();
   const books = $derived(data.books);
   const categories = $derived(data.categories);
+  const publishers = $derived(data.publishers);
 </script>
 
 <svelte:window bind:scrollY onscroll={() => useCalculator(scrollY, bannerTitle)} />
@@ -66,5 +67,5 @@
     </p>
   </section>
 
-  <Books {books} {categories} />
+  <Books {books} {categories} {publishers} />
 </div>

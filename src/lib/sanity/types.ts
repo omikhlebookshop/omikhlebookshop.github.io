@@ -13,7 +13,8 @@ export interface InternationalizedBlockObject {
   value: InputValue;
 }
 
-export interface CategoryTag {
+// tag referring to another schema
+export interface ReferenceTag {
   title: string;
 }
 
@@ -26,11 +27,11 @@ export interface Book {
   _id: string;
   title: string;
   author?: Tag[];
-  filterCategory?: CategoryTag[];
+  filterCategory?: ReferenceTag[];
   info?: InternationalizedBlockObject[];
   description: InternationalizedBlockObject[];
   price?: number;
-  publisher?: Tag[];
+  publisher?: ReferenceTag[];
   coverUrl?: string;
   cover?: SanityImageSource;
   images?: SanityImageObject[];

@@ -2,21 +2,53 @@
   import { Image } from '@unpic/svelte';
   import { urlBuilder } from '$lib/sanity/image';
 
-  import type { Tag, Book, CategoryTag } from '$lib/sanity/types';
+  import type { Tag, Book, ReferenceTag } from '$lib/sanity/types';
   import Placeholder from '$lib/components/atoms/Placeholder.svelte';
 
   interface Props {
     books: Book[];
-    categories: CategoryTag[] | undefined;
+    categories: ReferenceTag[] | undefined;
+    publishers: ReferenceTag[] | undefined;
   }
 
-  let { books, categories }: Props = $props();
-  let selectedCategory = $state('All');
+  let { books, categories, publishers }: Props = $props();
+  let selectedCategory: string | null = $state('All');
+  let selectedPublisher: string | null = $state(null);
 
-  /* Utils for category filtering */
-  const getCategories = (cats: CategoryTag[] | undefined) => cats?.map((c) => c.title) ?? [];
+  /* Utils for metadata filtering */
+  const getCategories = (cats: ReferenceTag[] | undefined) => cats?.map((c) => c.title) ?? [];
+  const filterByCategory = (targetCategory: string) =>
+    targetCategory === 'All'
+      ? books
+      : books.filter((b) => getCategories(b.filterCategory).includes(targetCategory));
+  const selectCategory = (category: string) => {
+    selectedCategory = category;
+    selectedPublisher = null;
+  };
+
+  const getPublishers = (publishers: ReferenceTag[] | undefined) =>
+    publishers?.map((p) => p.title) ?? [];
+  const filterByPublisher = (targetPublisher: string) =>
+    books.filter((b) => getPublishers(b.publisher).includes(targetPublisher));
+  const selectPublisher = (publisher: string) => {
+    selectedPublisher = publisher;
+    selectedCategory = null;
+  };
+
+  const applyFilter = (category: string | null, publisher: string | null) => {
+    if (category !== null) {
+      return filterByCategory(category);
+    }
+
+    if (publisher !== null) {
+      return filterByPublisher(publisher);
+    }
+
+    return books;
+  };
+
   const allCategories = $derived(['All', ...getCategories(categories)]);
-  // const coverColors = ['#c8c0b8', '#f0e8e0', '#2c2c2c', '#1a1a1a', '#4a6fa5', '#8b2e2e', '#7a8c7a'];
+  const allPublishers = $derived(getPublishers(publishers));
 
   /* Utils for filtering other metadata */
   const renderAuthors = (authors: Tag[] | undefined) => {
@@ -28,27 +60,44 @@
     return authors.length > 1 ? `${author}, et al.` : author;
   };
 
-  const filteredBooks: Book[] = $derived(
-    selectedCategory === 'All'
-      ? books
-      : books.filter((b) => getCategories(b.filterCategory)?.includes(selectedCategory))
-  );
+  const filteredBooks: Book[] = $derived(applyFilter(selectedCategory, selectedPublisher));
 </script>
 
 <!-- Sidebar category nav -->
-<nav flex flex-wrap prose leading-5 text-right class="dark:prose-invert lg:flex-col">
-  {#each allCategories as cat (cat)}
-    <button
-      text-right
-      shrink-0
-      class="transition-colors duration-200 py-1 {cat === selectedCategory
-        ? 'text-primary'
-        : 'text-secondary hover:text-primary'}"
-      onclick={() => (selectedCategory = cat)}
-    >
-      {cat}
-    </button>
-  {/each}
+<nav flex flex-wrap gap-5 prose leading-5 text-right class="dark:prose-invert lg:flex-col">
+  <ul flex flex-wrap my-0 class="lg:flex-col">
+    {#each allCategories as cat (cat)}
+      <li py-0 my-0>
+        <button
+          text-right
+          shrink-0
+          class="transition-colors duration-200 py-1 {cat === selectedCategory
+            ? 'text-primary'
+            : 'text-secondary hover:text-primary'}"
+          onclick={() => selectCategory(cat)}
+        >
+          {cat}
+        </button>
+      </li>
+    {/each}
+  </ul>
+  <ul flex flex-wrap my-0 class="lg:flex-col">
+    <li text-right>By Publisher</li>
+    {#each allPublishers as pub (pub)}
+      <li py-0 my-0>
+        <button
+          text-right
+          shrink-0
+          class="transition-colors duration-200 py-1 {pub === selectedPublisher
+            ? 'text-primary'
+            : 'text-secondary hover:text-primary'}"
+          onclick={() => selectPublisher(pub)}
+        >
+          {pub}
+        </button>
+      </li>
+    {/each}
+  </ul>
 </nav>
 
 <!-- Books grid -->

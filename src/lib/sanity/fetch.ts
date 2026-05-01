@@ -9,8 +9,15 @@ const FETCH_QUERY = {
 }`,
   allCategories: `*[_type == "category"]{
  ...,
+}`,
+  allPublishers: `*[_type == "publisher"]{
+ ...,
 }`
 };
+
+async function fetchPublishers() {
+  return await client.fetch(FETCH_QUERY['allPublishers'], {}, options);
+}
 
 async function fetchCategories() {
   return await client.fetch(FETCH_QUERY['allCategories'], {}, options);
@@ -52,4 +59,4 @@ function getBook(books, id: string, locale: string) {
   return res ? res[0] : null;
 }
 
-export { fetchBooks, fetchCategories, getBooksByLocale, getBookById, getBook };
+export { fetchBooks, fetchCategories, fetchPublishers, getBooksByLocale, getBookById, getBook };
