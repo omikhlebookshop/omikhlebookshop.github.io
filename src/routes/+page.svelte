@@ -18,10 +18,10 @@
 
 <svelte:head>
   <title>Omíkhlē Bookshop</title>
-  <meta name="description" content="Homepage of the Omíkhlē Bookshop（雾中风景书店）" />
+  <meta name="description" content="Official home page of the Omíkhlē Bookshop（雾中风景书店）" />
 </svelte:head>
 
-<div grid grid-cols-1 gap-5 class="lg:grid-cols-[30%_1fr]" {@attach cursor}>
+<div grid grid-cols-1 gap-5 pb-15 class="lg:grid-cols-[30%_1fr]" {@attach cursor}>
   <!-- Custom cursor -->
   <Cursor />
   <!-- Home page content -->
@@ -34,7 +34,6 @@
       class="text-[11rem]/[11rem] h-[12rem]"
       m-0
       font-serif
-      font-light
       bind:this={bannerTitle}
     >
       霧中風景

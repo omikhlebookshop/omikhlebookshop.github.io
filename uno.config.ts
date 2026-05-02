@@ -60,8 +60,8 @@ export default defineConfig({
     presetWebFonts({
       provider: 'bunny',
       fonts: {
-        sans: ['Helvetica Neue', 'Inter']
-        // serif: ['Noto Serif SC']
+        sans: ['Helvetica Neue', 'Inter'],
+        serif: ['Noto Serif TC:200']
       }
     }),
     presetRemToPx({ baseFontSize: 18 }),

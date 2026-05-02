@@ -106,11 +106,11 @@
     <p class="text-secondary italic">No books found in this category.</p>
   {/if}
 
-  <div grid gap-10 style="grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));">
+  <div grid gap-10 class="grid-cols-[repeat(auto-fill,minmax(160px,1fr))]">
     {#each filteredBooks as book (book._id)}
       <a class="group cursor-pointer" href="/book/{book._id}">
         <!-- Book cover -->
-        <div flex flex-col class="w-full aspect-[3/4] mb-4 overflow-hidden">
+        <div flex flex-col class="w-full sm:aspect-[3/4] mb-4 overflow-hidden">
           {#if book.cover === undefined}
             <Placeholder label={book.title} />
           {:else}
