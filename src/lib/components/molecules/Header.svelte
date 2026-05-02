@@ -19,7 +19,7 @@
   bg="dark:dark"
   text-2xl
   leading-none
-  class="grid grid-cols-[30%_1fr] gap-5"
+  class="pt-[calc(env(safe-area-inset-top)+1rem)] grid grid-cols-[30%_1fr] gap-5"
 >
   <!-- home anchor -->
   <Link class="text-right text-secondary" href="/">Omíkhlē</Link>
